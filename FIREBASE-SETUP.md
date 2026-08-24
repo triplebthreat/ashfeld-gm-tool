@@ -3,9 +3,8 @@
 ✅ **PUBLISHED 2026-07-15** (including the DM-full-write amendment) and verified
 live with a full permission matrix.
 
-⚠️ **`database.rules.json` was updated 2026-08-24 to add the `users/{uid}`
-node (real accounts / cloud character sync in `lotto-luck.html`) — this
-change has NOT been published yet.** Follow the steps below to push it live.
+✅ **`database.rules.json`'s `users/{uid}` node (2026-08-24 update) is now
+published live** — confirmed via the Firebase console rules editor.
 
 `database.rules.json` in this folder is the
 source of truth — if rules ever need changing, edit that file and re-publish:
@@ -42,20 +41,23 @@ These rules were written against the current flows in BOTH apps:
 
 ## Google Sign-In setup (player tool accounts — separate from the rules above)
 
-Three things, all in the **lottodnd** Firebase console project, none of them
-`database.rules.json` changes:
+✅ **All three steps below are DONE (2026-08-24)** — Google Sign-In should
+work live at `triplebthreat.github.io/lotto-luck/lotto-luck.html`.
 
 1. **Enable the provider**: Authentication → Sign-in method → enable **Google**.
+   Support email set to `brodie.bartholomew425@gmail.com`.
 2. **Authorize every domain the app is served from**: Authentication → Settings
    → Authorized domains → Add domain. `localhost` and the project's own
    `*.firebaseapp.com` are authorized automatically — anything else (GitHub
    Pages, a custom domain) is NOT, and needs adding by hand. Missing this
    throws `auth/unauthorized-domain` (hit live 2026-08-24 on
-   `triplebthreat.github.io` — had to add it after the fact).
-3. **Publish the `users/{uid}` rule** — see the steps at the top of this file.
+   `triplebthreat.github.io` — added it after the fact). If a future domain
+   is added (custom domain, `ashfeld-gm-tool` if it ever needs its own
+   sign-in), repeat this step for it.
+3. **Publish the `users/{uid}` rule** — done, see status at the top of this file.
 
-If sign-in fails, check which of these three is missing before assuming it's
-a code bug — the error message usually names the exact problem
+If sign-in ever fails again, check which of these three broke before assuming
+it's a code bug — the error message usually names the exact problem
 (`auth/operation-not-allowed` = step 1, `auth/unauthorized-domain` = step 2).
 
 ## Heads-up for the player tool
