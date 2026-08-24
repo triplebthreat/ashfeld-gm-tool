@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GM Tool — Ashfeld</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase (same project + SDK version as the player tool). If these
+       fail to load (offline table), party features disable gracefully. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ── TOP BAR ─────────────────────────────────────────── -->
+  <div id="topbar">
+    <span class="brand">GM</span>
+
+    <!-- Location selector -->
+    <select id="loc-selector" title="Switch world location"></select>
+    <button id="add-location-btn" title="Add a new world location">+ Location</button>
+
+    <div class="topbar-sep"></div>
+
+    <!-- Session controls -->
+    <div id="session-controls">
+      <span class="session-label">Session</span>
+      <button id="session-dec" title="Previous session">‹</button>
+      <span id="session-num">1</span>
+      <button id="session-inc" title="Next session">›</button>
+    </div>
+
+    <button id="session-notes-btn" title="Open session notes">📝 Notes</button>
+    <button id="pc-list-btn" title="Player characters — narrative notes, goals, arcs">🎭 PCs</button>
+    <button id="plot-thread-btn" title="Plot threads — hooks and slow-burns that aren't formal quests">🧵 Threads</button>
+    <button id="backup-btn" title="Back up or restore campaign data">💾</button>
+
+    <div class="topbar-sep"></div>
+
+    <!-- Edit mode -->
+    <button id="edit-mode-btn" title="Toggle edit mode">✏ Edit</button>
+
+    <div class="topbar-sep"></div>
+
+    <!-- Party connection (Firebase bridge to the player tool) -->
+    <button id="party-btn" title="Connect to the party">🎲 Party</button>
+
+    <!-- Combat tracker (DM-local — players never see initiative) -->
+    <button id="combat-btn" title="Start or manage combat">⚔ Combat</button>
+    <button id="scene-btn" title="Battle map — scenes &amp; tokens">🗺 Scene</button>
+    <button id="bestiary-btn" title="Bestiary — browse, filter, add custom monsters">📖</button>
+    <button id="handout-btn" title="Send a handout to the party">📣</button>
+    <button id="log-btn" title="Shared party log">📜</button>
+
+    <div class="topbar-spacer"></div>
+  </div>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────────── -->
+  <div id="main">
+
+    <!-- ── LEFT: MAP PANEL ─────────────────────────────────── -->
+    <div id="map-panel">
+      <div id="map-toolbar">
+        <span class="map-title">Map</span>
+        <button id="world-btn" style="display:none">🌍 World Map</button>
+        <button id="map-image-btn" style="display:none">🖼 Set Map Image</button>
+        <button id="add-marker-btn" class="hidden" style="display:none">+ Add Location</button>
+      </div>
+      <!-- Edit mode shows add-marker button -->
+      <div id="map-wrap">
+        <div id="map-grid">
+          <!-- Markers injected by app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: CONTEXT PANEL ────────────────────────────── -->
+    <div id="right-panel">
+      <div id="panel-header"></div>
+      <div id="panel-body">
+        <div id="panel-empty">
+          <div class="empty-icon">🗺</div>
+          <div>Select a location on the map</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#main -->
+
+  <!-- Live party dashboard (shows when connected to a party) -->
+  <div id="party-strip"></div>
+
+</div><!-- /#app -->
+
+<!-- ── MODAL ─────────────────────────────────────────────── -->
+<div id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Modal Title</h2>
+      <button class="modal-close" title="Close">×</button>
+    </div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"></div>
+  </div>
+</div>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="party.js"></script>
+<script src="monsters.js"></script>
+<script src="combat.js"></script>
+<script src="share.js"></script>
+<script src="scene.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "parties": {
+      "$code": {
+        ".read": "auth != null",
+        ".write": "auth != null && (!data.exists() || data.child('dmUid').val() === auth.uid)",
+
+        "dmUid": {
+          ".write": "auth != null && (!data.exists() || data.val() === auth.uid)"
+        },
+
+        "members": {
+          "$uid": {
+            ".write": "auth != null && ($uid === auth.uid || root.child('parties').child($code).child('dmUid').val() === auth.uid)"
+          }
+        },
+
+        "combat": {
+          ".write": "auth != null && root.child('parties').child($code).child('dmUid').val() === auth.uid"
+        },
+        "scene": {
+          ".write": "auth != null && root.child('parties').child($code).child('dmUid').val() === auth.uid"
+        },
+        "handouts": {
+          ".write": "auth != null && root.child('parties').child($code).child('dmUid').val() === auth.uid"
+        },
+
+        "log": {
+          "$entry": {
+            ".write": "auth != null && !data.exists() && newData.exists()"
+          }
+        }
+      }
+    }
+  }
+}
