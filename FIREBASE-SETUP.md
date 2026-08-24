@@ -40,6 +40,24 @@ These rules were written against the current flows in BOTH apps:
 - GM tool (party.js): create party with dmUid, claim dmUid via transaction,
   read members — all still allowed.
 
+## Google Sign-In setup (player tool accounts — separate from the rules above)
+
+Three things, all in the **lottodnd** Firebase console project, none of them
+`database.rules.json` changes:
+
+1. **Enable the provider**: Authentication → Sign-in method → enable **Google**.
+2. **Authorize every domain the app is served from**: Authentication → Settings
+   → Authorized domains → Add domain. `localhost` and the project's own
+   `*.firebaseapp.com` are authorized automatically — anything else (GitHub
+   Pages, a custom domain) is NOT, and needs adding by hand. Missing this
+   throws `auth/unauthorized-domain` (hit live 2026-08-24 on
+   `triplebthreat.github.io` — had to add it after the fact).
+3. **Publish the `users/{uid}` rule** — see the steps at the top of this file.
+
+If sign-in fails, check which of these three is missing before assuming it's
+a code bug — the error message usually names the exact problem
+(`auth/operation-not-allowed` = step 1, `auth/unauthorized-domain` = step 2).
+
 ## Heads-up for the player tool
 
 If a player clears their browser storage they get a new anonymous uid and
