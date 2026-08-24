@@ -110,3 +110,27 @@ Follow-ups (optional polish):
 - `CONTRACT.md` (cross-app schema) · `CAMPAIGN.md` (canon brief)
 - `FIREBASE-SETUP.md` · `database.rules.json`
 - Backups: `data-backup-old-campaign.js`, `lotto-luck-backup-pre-integration.html`
+
+---
+
+## Deployment / operating notes
+
+- **This folder (`C:\Users\brodi\gm-tool`) is the git working tree itself** —
+  unlike `lotto-luck.html`, there's no separate "edit here, copy into the repo
+  folder" step. It's a real git repo (initialized 2026-08-24) pushed to
+  **`https://github.com/triplebthreat/ashfeld-gm-tool`** (public repo, GitHub
+  Pages live at **https://triplebthreat.github.io/ashfeld-gm-tool/**).
+- **Any change here needs an explicit `git add` / `commit` / `push` to reach
+  the live Pages site** — editing the local files alone (or testing via the
+  `gm-tool` preview server) does NOT auto-publish. Easy to forget since the
+  local copy and the live site can silently drift apart otherwise.
+- **Repo is public — DM secrets live in plaintext source (`data.js`).** Corvyn,
+  Sevryn, every NPC `secret`/`dmNotes` field, monster stat blocks — all
+  readable by anyone with the URL (view-source, or just fetching `data.js`
+  directly bypasses the app's own player/DM display split entirely). This was
+  a deliberate accepted tradeoff (private repos need paid GitHub Pro for
+  Pages) — **never share this URL with players**, same as you'd never hand
+  them your prep notes.
+- Local dev unaffected: preview server "gm-tool" (port 8124, launch config in
+  `.claude/launch.json`) still points at these same local files for testing
+  before pushing.
